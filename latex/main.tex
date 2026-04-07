@@ -393,7 +393,7 @@ When $\mu_D$ separates all points of $W$:
 
 The previous subsection defined the training ecology induced by a corpus. We now relate that ecology to the larger space of distinctions that are in principle expressible in language at all. This matters because the training corpus can only separate pairs that are both linguistically distinguishable and actually probed by contexts of positive training measure.
 
-\begin{proposition}[Text ecology is bounded by linguistic equivalence]\label{prop:ling-bound}
+\begin{proposition}[Linguistic equivalence bounds the text ecology]\label{prop:ling-bound}
 For all $w_1, w_2 \in W$:
 \begin{enumerate}[label=(\alph*)]
 \item If $w_1 \approx_L w_2$ then $\sigmasq_D(w_1, w_2) = 0$ for every training distribution~$D$.
@@ -502,8 +502,8 @@ $F_\theta$ is a fixed function determined by $\theta$. For any $c$, the outputs 
 
 In the circuit language of \citet{elhage_etal_2021_framework}, induction-style in-context learning is a concrete example of this bounded flexibility: prompts can alter which composed circuit is activated, but they do so through the same frozen QK/OV machinery. The prompt changes the readout path, not the underlying separation set available to the implementation.
 
-\begin{corollary}[ICL strengthens the case for training-time veridicality]
-If $(w_1,w_2) \notin S(\theta)$, then no prompting strategy can make the frozen model distinguish that pair. Therefore, whenever a deployment ecology assigns positive separation weight to such a pair, a strictly positive excess token loss is unavoidable for that frozen $\theta$ (by \thmref{thm:ce-decomposition}(c)).
+\begin{corollary}[ICL and training-time veridicality]
+If $(w_1,w_2) \notin S(\theta)$, then no prompting strategy can make the frozen model distinguish that pair. Whenever a deployment ecology assigns positive separation weight to such a pair, a strictly positive excess token loss is unavoidable for that frozen~$\theta$ (by \thmref{thm:ce-decomposition}(c)).
 \end{corollary}
 
 \begin{proof}
@@ -527,11 +527,14 @@ Let $p_{\theta,D} \colon W \to W/{\sim_{\theta,D}}$ map each world state to its 
 
 The object $p_{\theta,D}$ is defined by the model's behavior on $D_C$-almost every context, so finite probing generally cannot reveal it directly in realistic production LLMs. Only laboratory settings with exhaustively enumerable context sets, such as the microgpt experiments in our model-organism study, allow exact recovery. For production models, we can only estimate coarse proxies for the induced partition from finite prompt families and observed next-token distributions.
 
-\begin{remark}[Separation set versus ecology-relative encoding]
-The full readout repertoire $S(\theta)$ from \defref{def:repertoire} records which pairs are distinguishable by \emph{some} context in $V^*$. The ecology-relative partition $\sim_{\theta,D}$ is coarser: if a pair is separated only on a $D_C$-null set of contexts, then $(w_1,w_2) \in S(\theta)$ but $w_1 \sim_{\theta,D} w_2$. Thus $S(\theta)$ can be strictly larger than what the training or deployment ecology actually exposes. This is the model-side analogue of \corref{cor:text-separation}: zero-measure distinguishing contexts do not affect the ecology-induced partition.
+\begin{remark}[Separation set vs.\ ecology-relative encoding]
+The full readout repertoire $S(\theta)$ from \defref{def:repertoire} records which pairs are distinguishable by \emph{some} context in~$V^*$.
+The ecology-relative partition~$\sim_{\theta,D}$ is coarser: if a pair is separated only on a $D_C$-null set of contexts, then $(w_1,w_2) \in S(\theta)$ but $w_1 \sim_{\theta,D} w_2$.
+Thus $S(\theta)$ can be strictly larger than what the training or deployment ecology actually exposes.
+This is the model-side analogue of \corref{cor:text-separation}: zero-measure distinguishing contexts do not affect the ecology-induced partition.
 \end{remark}
 
-Chain-of-thought prompting and scratchpads can still improve performance within a frozen model by generating intermediate tokens that create longer, more informative contexts \citep{wei_etal_2022_cot,nye_etal_2021_scratchpads}. In our terms, such procedures can make weak but already available distinctions easier to exploit at inference time, without enlarging the underlying separation set $S(\theta)$. This paper studies the representational question: which distinctions the frozen model can in principle preserve under an ecology. The separate computational question of how much inference-time work is needed to exploit an existing separation is not addressed here.
+Chain-of-thought prompting and scratchpads can improve performance within a frozen model by generating intermediate tokens that create longer, more informative contexts \citep{wei_etal_2022_cot,nye_etal_2021_scratchpads}, but they do not enlarge the underlying separation set $S(\theta)$. The deployment decoding gap (\defref{def:decoder-gap}) formalizes this distinction: such procedures reduce the gap between the Bayes-optimal decoder and the restricted deployment class, without changing the representational term.
 
 \begin{definition}[Ecological excess token loss of a model]\label{def:model-risk}
 Define
@@ -696,21 +699,24 @@ For each non-veridical $p \in \mathcal{P}_\Theta$, write
 \Delta_D(p) := L_D^*(p)-H(Y \mid C,W),
 \]
 so $\Delta_D(p)\ge \gamma_D^{\CE}$.
+For the veridical encoding, write
+\[
+N_v := \log(1/\rho(p^v))+\log(2/\alpha).
+\]
+For each non-veridical $p$, write
+\[
+N_p := \bigl(\log(1/\rho(p))+\log(2/\alpha)\bigr)
+       \bigl(\gamma_D^{\CE}/\Delta_D(p)\bigr)^2.
+\]
 If $\varepsilon_{\mathrm{opt}} < \gamma_D^{\CE}$, then with probability at least $1-\alpha$:
 \[
 p_{\hat\theta,D} \text{ is ecologically veridical},
 \]
 provided
 \[
-\begin{aligned}
-n \ge {} & \frac{2C_\tau^2}{(\gamma_D^{\CE}-\varepsilon_{\mathrm{opt}})^2} \\
-& \cdot \max\!\left\{
-      \log(1/\rho(p^v))+\log(2/\alpha),\,
-      \max_{p\ \text{non-veridical}}
-      \Bigl(\log(1/\rho(p))+\log(2/\alpha)\Bigr)
-      \Bigl(\gamma_D^{\CE}/\Delta_D(p)\Bigr)^2
-    \right\}.
-\end{aligned}
+n \ge \frac{2C_\tau^2}{(\gamma_D^{\CE}-\varepsilon_{\mathrm{opt}})^2}
+      \max\!\Bigl\{N_v,\;
+      \max_{p\ \text{non-veridical}} N_p\Bigr\}.
 \]
 \end{theorem}
 
@@ -818,9 +824,9 @@ Then
 \log(1/\rho_{\beta_0}(p))
 = \beta_0 H(p(W)) + \log Z_{\beta_0},
 \]
-where $Z_{\beta_0}$ is the normalizing constant. Under that choice, low-complexity induced partitions receive larger mass and therefore tighter concentration radii. If the model class contains a minimum-complexity veridical partition, its contribution is governed by $\beta_0 I^*(\mu_D)+\log Z_{\beta_0}$ from \thmref{thm:min-complexity}. The exact sample bound still depends on the full maximum over non-veridical partitions; in general it cannot be reduced to the gap-achieving partition alone without extra structure relating $\Delta_D(p)$ to $H(p(W))$.
+where $Z_{\beta_0}$ is the normalizing constant. Under that choice, low-complexity induced partitions receive larger mass and therefore tighter concentration radii. If the model class contains a minimum-complexity veridical partition, its contribution is governed by $\beta_0 I^*(\mu_D)+\log Z_{\beta_0}$ from \thmref{thm:min-complexity}. The exact sample bound depends on the full maximum over non-veridical partitions and cannot in general be reduced to the gap-achieving partition alone without extra structure relating $\Delta_D(p)$ to $H(p(W))$.
 
-This theorem is still a uniform-convergence result over induced encodings, not a theorem about SGD on transformer parameter space. However, unlike the earlier ecological-risk formulation, the objective here is the actual token-level log-loss. The remaining idealisation is that each induced encoding $p_{\theta,D}$ is paired with its Bayes-optimal decoder $q_{\theta}^*$. The theorem therefore decomposes success into representation choice plus decoder optimality, and then into optimisation error $\varepsilon_{\mathrm{opt}}$ and statistical error $\eta$. What we do \emph{not} yet have is a separate realistic bound on the gap between the Bayes-optimal decoder $q_{\theta}^*$ and the decoder actually implemented by a trained transformer during a single training run; in the present theorem that gap is absorbed into the optimisation idealisation. The finite induced class assumption is automatically satisfied since $W$ is finite, and $M_\Theta$ cannot exceed the Bell number $B(|W|)$. But $B(|W|)$ grows super-exponentially; already $B(20) \approx 5.2 \times 10^{13}$. So the bound is mainly conceptual unless the effective induced class is far smaller than the worst-case partition count and the token-loss gap $\gamma_D^{\CE}$ is not too small. The same entropy $H(p(W))$ now appears in three distinct roles: as the minimum-complexity target in \thmref{thm:min-complexity}, as the explicit simplicity term in $J_{D,\beta}$ below, and, after choosing an entropic prior, as the statistical price paid to certify a partition from finite data.
+The theorem is a uniform-convergence result over induced encodings, not a statement about SGD on transformer parameter space. Unlike the earlier ecological-risk formulation, the objective is the actual token-level log-loss, but each induced encoding $p_{\theta,D}$ is paired with its Bayes-optimal decoder $q_{\theta}^*$. The decomposition therefore separates representation choice from decoder optimality, and within those, optimisation error $\varepsilon_{\mathrm{opt}}$ from statistical error $\eta$. The gap between the Bayes-optimal decoder and the decoder a trained transformer actually implements is absorbed into the optimisation idealisation; \defref{def:decoder-gap} below isolates that term explicitly. The finite induced class assumption holds automatically since $W$ is finite, but $M_\Theta$ can reach the Bell number $B(|W|)$, which grows super-exponentially ($B(20) \approx 5.2 \times 10^{13}$). The bound is therefore mainly conceptual unless the effective induced class is far smaller than the worst-case partition count and $\gamma_D^{\CE}$ is not too small. The entropy $H(p(W))$ plays three roles in the framework: it is the minimum-complexity target (\thmref{thm:min-complexity}), the explicit simplicity term in $J_{D,\beta}$ below, and, under an entropic prior, the statistical price of certifying a partition from finite data.
 
 \begin{definition}[Deployment decoder class and decoding gap]\label{def:decoder-gap}
 Fix a nonempty class $\mathcal{Q}_{\mathrm{dep}}$ of admissible deployment-time decoders
@@ -951,11 +957,12 @@ Condition~(a) gives heredity, (b) gives variation, and (c)--(d) give differentia
 
 \subsection{Conditions for Importing the Ecological-Veridicality Population Dynamics}
 
-\begin{proposition}[Importing ecological-veridicality dynamics to model populations]\label{prop:llm-wf}
-Consider an idealized model-lineage population over a time window on which:
+\begin{proposition}[Selection dynamics across model lineages]\label{prop:llm-wf}
+Consider a population of model lineages over a time window on which:
 \begin{enumerate}[label=(\alph*)]
 \item each active lineage $i$ carries a frozen deployment encoding $p_i$;
-\item expected fitness is frequency-independent and depends on the encoding only through deployment performance, e.g.\ $\mathcal{F}(p_i) = C - \Delta_D(p_i)$ or any strictly decreasing transform of $\Delta_D(p_i)$, where $\Delta_D(p_i):=L_D^*(p_i)-H(Y \mid C,W)$;
+\item expected fitness is frequency-independent and depends on the encoding only through deployment performance, e.g.\
+$\mathcal{F}(p_i) = C - \Delta_D(p_i)$ or any strictly decreasing transform of~$\Delta_D(p_i)$, where $\Delta_D(p_i):=L_D^*(p_i)-H(Y \mid C,W)$;
 \item parent lineages are chosen with probability proportional to $\mathcal{F}(p_i)$;
 \item offspring lineages inherit their parent's encoding up to a mutation kernel $Q$ on induced encodings (architecture changes, data changes, distillation noise, fine-tuning updates);
 \item the mutation/reproduction process is Markovian on the induced encoding space over the chosen horizon.
@@ -1101,7 +1108,7 @@ The static theorem identifies when zero excess is achievable, but not which zero
 For an encoding $p \colon W \to X$ with prior $\pi$, the representational complexity is $I(p) = I(W; p(W)) = H(p(W))$, since $p$ is deterministic.
 \end{definition}
 
-\begin{theorem}[Minimum-complexity ecological veridicality]\label{thm:min-complexity}
+\begin{theorem}[Minimum-complexity veridicality]\label{thm:min-complexity}
 Among all encodings with
 \[
 L_D^*(p) = H(Y \mid C,W)
@@ -1139,7 +1146,7 @@ H(W) - H(W/{\sim_\mu}) = H(W \mid W/{\sim_\mu}).
 The minimum-complexity ecologically veridical encoding carries exactly the task-relevant information and nothing else. This gives a precise entropy-based benchmark for what a simplicity preference would have to select: among all zero-excess representations, the coarsest partition compatible with the ecology. Any extra resolution within $\mu$-equivalence classes carries additional information cost without improving Bayes-optimal token loss.
 \end{interpretation}
 
-\begin{corollary}[Topological convergence of minimum-complexity optima]\label{cor:topological-convergence}
+\begin{corollary}[Topological convergence of optima]\label{cor:topological-convergence}
 If two models $\theta_1, \theta_2$ both attain the training optimum
 \[
 L_D^*(\theta_i) = H(Y \mid C,W)
@@ -1386,7 +1393,8 @@ Together, the decomposition theorem, the minimum-complexity result, and the two-
 If an encoding merges a pair $(w_1,w_2)$ that a probe ecology separates, \thmref{thm:ce-decomposition}(b) immediately gives positive excess under that ecology. By \thmref{thm:min-complexity}, a minimum-complexity zero-excess encoding for ecology~$\mu$ merges exactly the $\mu$-equivalent pairs. Any probe ecology that refines~$\mu$ therefore exposes positive excess on the newly separated pairs.
 
 \paragraph{Simplicity pressure sheds low-gain distinctions first.}
-Under the complexity-regularized objective $J_{D,\beta}$, \thmref{thm:split-threshold} shows that distinctions whose predictive Jensen--Shannon gain is smaller than $\beta\,h(\lambda)$ are locally preferred merge candidates. The pairs with the smallest gain-to-cost ratio are the first to become unstable as $\beta$ increases (\corref{cor:veridical-local-min}).
+Under the regularized objective~$J_{D,\beta}$, \thmref{thm:split-threshold} shows that distinctions whose predictive Jensen--Shannon gain is smaller than $\beta\,h(\lambda)$ are locally preferred merge candidates.
+The pairs with the smallest gain-to-cost ratio are the first to become unstable as $\beta$ increases~(\corref{cor:veridical-local-min}).
 
 \paragraph{Token and evaluation ecologies may disagree.}
 The two-ecology framework (\cref{sec:two-ecology}) identifies the gap set: pairs where $\sigmasq_{\mathrm{tok}}(w_1,w_2)\approx 0$ but $\sigmasq_{\mathrm{eval}}(w_1,w_2)\gg 0$. On such pairs the token ecology provides little pressure to preserve the distinction, but the evaluation ecology rewards it. Ecology injection (\propref{prop:ecology-injection}) can rescue gap pairs, with the required injection level given by the explicit threshold~$\alpha^*$.
@@ -1416,7 +1424,9 @@ For language models, $W$ is not exogenous: model-generated text enters future tr
 \medskip
 Two conclusions follow. The ecological veridicality framework identifies which world-state distinctions the training ecology forces a Bayes-optimal encoding to preserve, and which it leaves free to merge. Simplicity pressure determines the order in which weak distinctions are shed. The two-ecology extension locates the gap pairs where evaluation pressure and post-training injection matter beyond the base token objective. These are specific, testable claims; they do not require geometric convergence, which the present results leave unresolved. The strongest convergence narratives therefore remain conditional: on the ecology, on penetrability, on simplicity pressure, and on whether model populations reshape the worlds to which they are supposed to become veridical. The model-organism methodology makes those conditions testable in a regime where every theoretical quantity is directly observable, and the resulting distinctions can be carried as disciplined hypotheses into the study of larger systems.
 
-\acks{No external funding. No conflicts of interest. Thanks to Sinon, son of Autolycus.}
+\acks{No external funding. No conflicts of interest. Thanks to Sinon, son of Autolycus.
+
+Code and experiment scripts are available at \url{https://github.com/gvdr/llm_evo_veridicity}.}
 
 \bibliography{refs}
 
@@ -1653,8 +1663,9 @@ Single-pass prompting, chain-of-thought prompting, scratchpads, and tool-augment
 
 The generalist-specialist comparison gives a supplementary consequence of the same excess decomposition: broad ecologies favor representations that preserve all distinctions jointly required across tasks, while specialists can be optimal only relative to narrower sub-ecologies.
 
-\begin{theorem}[Generalist advantage under shared separation]\label{thm:gen-vs-spec}
-For each task $t \in \{1,\ldots,T\}$, let $D^{(t)}$ be the corresponding data distribution, let $\mu_t$ be its induced task ecology, and let $D_C^{(t)}$ be its context marginal. Define the excess Bayes-optimal token loss
+\begin{theorem}[Generalist advantage]\label{thm:gen-vs-spec}
+For each task $t \in \{1,\ldots,T\}$, let $D^{(t)}$ be the corresponding data distribution, $\mu_t$ its induced task ecology, and $D_C^{(t)}$ its context marginal.
+Define the excess Bayes-optimal token loss
 \[
 \Delta_t(\theta) := L_{D^{(t)}}^*(\theta) - H_{D^{(t)}}(Y \mid C,W).
 \]
@@ -1712,7 +1723,10 @@ which is the displayed bound because $\pi_x\beta=\pi(w_1)+\pi(w_2)$. Because $\s
 The two-ecology framework of \cref{sec:two-ecology} identifies post-training as an ecology-injection mechanism. The following results characterise how lineage selection acts on the strength of that injection.
 
 \begin{proposition}[Selection on recipe traits]\label{prop:recipe-trait}
-Let $\mathcal{R}$ be a finite recipe space and let $\alpha\colon\mathcal{R}\to[0,1]$ be a heritable scalar recipe trait, interpreted as the strength of ecology injection. Consider one selection stage in a Wright--Fisher population over recipes $r_1,\ldots,r_K$ with recipe frequencies~$x(r)$ and expected fitness~$f(r)$. Define the population mean trait $\bar\alpha := \sum_r x(r)\,\alpha(r)$ and let $\bar\alpha_{\mathrm{eval}}$ denote the mean trait in the selected-parent population. Then:
+Let $\mathcal{R}$ be a finite recipe space with a heritable scalar trait $\alpha(r)\in[0,1]$ for each $r\in\mathcal{R}$, interpreted as the strength of ecology injection.
+Consider one selection stage in a Wright--Fisher population over recipes $r_1,\ldots,r_K$ with frequencies~$x(r)$ and expected fitness~$f(r)$.
+Define the population mean trait $\bar\alpha := \sum_r x(r)\,\alpha(r)$ and let $\bar\alpha_{\mathrm{eval}}$ denote the mean trait in the selected-parent population.
+Then:
 \begin{enumerate}[label=(\alph*)]
 \item \textbf{Exact identity.}
 $\bar\alpha_{\mathrm{eval}} - \bar\alpha = \Cov_x(f,\alpha)\,/\,\bar f$.
