@@ -1,0 +1,33 @@
+# Corpora (public-domain sources, regenerable via scripts/clean_*.jl)
+data/alice/
+data/dante/
+data/manifesto/
+data/voynich/
+data/lisp/
+data/names/
+data/results/
+
+# Generated figures (top-level; paper figures live in latex/figures/)
+figures/
+
+# PNG duplicates in latex/figures (only PDFs are used by the manuscript)
+latex/figures/*.png
+
+# LaTeX build artifacts
+latex/*.aux
+latex/*.bbl
+latex/*.blg
+latex/*.log
+latex/*.out
+
+# Stray logs
+texput.log
+
+# Archived working notes, superseded code, and dropped experiments
+archive/
+
+# Old prose drafts
+old/
+
+# Empty scaffolding
+theorem_sanity/
