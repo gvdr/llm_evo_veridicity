@@ -1,0 +1,309 @@
+============================================================
+Experiment 3: Population Dynamics and Price Equation
+============================================================
+
+Tokenizer: 27 tokens (26 chars + BOS)
+  english: 5922 chunks
+  french: 6318 chunks
+  german: 6412 chunks
+  italian: 5969 chunks
+  finnish: 6104 chunks
+
+Model: 27328 params
+Population: K=20 G=50 N_RUNS=3
+Development: n_dev_steps=20 lr_dev=0.005
+Mutation: sigma_mut=0.001
+Selection diagnostics: exact conditional mean and sd
+
+  english: 4738 train, 1184 test chunks
+  french: 5054 train, 1264 test chunks
+  german: 5130 train, 1282 test chunks
+  italian: 4775 train, 1194 test chunks
+  finnish: 4883 train, 1221 test chunks
+
+Total training sequences: 24580 (balanced across 5 languages)
+Calibrating threshold from T=1 baseline...
+  tau = 0.002763
+
+==================================================
+Run 1/3 (seed=42)
+==================================================
+Initializing population (K=20, 100 steps each)...
+  model 1: seed=42001 init_lang=french
+  model 20: seed=42020 init_lang=italian
+  Initial: R_bar=2.9263 w_bar=0.053844
+
+  gen 1/50  R_bar=2.9263  w_bar=0.053844  delta_sel=-0.009794  price=-0.009149  k=2.2  (12.6s)
+  gen 2/50  R_bar=2.7901  w_bar=0.061429  delta_sel=0.009343  price=-0.000416  k=2.4  (13.0s)
+  gen 3/50  R_bar=2.7785  w_bar=0.06215  delta_sel=0.006958  price=-0.000636  k=2.6  (12.7s)
+  gen 4/50  R_bar=2.7614  w_bar=0.063215  delta_sel=-0.005188  price=-0.000321  k=2.6  (12.6s)
+  gen 5/50  R_bar=2.7435  w_bar=0.064365  delta_sel=-0.001129  price=-0.000604  k=2.4  (12.6s)
+  gen 6/50  R_bar=2.7377  w_bar=0.064732  delta_sel=-0.003994  price=-0.000338  k=2.6  (12.7s)
+  gen 7/50  R_bar=2.7404  w_bar=0.064554  delta_sel=0.001399  price=-0.000319  k=2.7  (12.1s)
+  gen 8/50  R_bar=2.7321  w_bar=0.065095  delta_sel=-0.00396  price=-0.000326  k=2.8  (12.5s)
+  gen 9/50  R_bar=2.7256  w_bar=0.065516  delta_sel=0.004356  price=-0.00027  k=2.8  (12.3s)
+  gen 10/50  R_bar=2.7235  w_bar=0.065653  delta_sel=-0.00219  price=-0.000214  k=2.7  (12.2s)
+  gen 11/50  R_bar=2.7195  w_bar=0.065918  delta_sel=-0.001058  price=-0.000327  k=2.8  (12.1s)
+  gen 12/50  R_bar=2.7196  w_bar=0.065921  delta_sel=-0.002522  price=-0.000525  k=2.9  (12.3s)
+  gen 13/50  R_bar=2.7237  w_bar=0.065642  delta_sel=0.000439  price=-0.000331  k=2.8  (12.5s)
+  gen 14/50  R_bar=2.7218  w_bar=0.065763  delta_sel=-0.000308  price=-0.00029  k=2.8  (12.8s)
+  gen 15/50  R_bar=2.7154  w_bar=0.066191  delta_sel=0.000817  price=-0.000399  k=3.0  (12.8s)
+  gen 16/50  R_bar=2.7093  w_bar=0.066601  delta_sel=0.003151  price=-0.000526  k=3.0  (12.8s)
+  gen 17/50  R_bar=2.709  w_bar=0.066612  delta_sel=-0.00596  price=-0.000348  k=3.0  (13.3s)
+  gen 18/50  R_bar=2.7107  w_bar=0.0665  delta_sel=-0.001125  price=-0.000349  k=2.9  (14.0s)
+  gen 19/50  R_bar=2.707  w_bar=0.066761  delta_sel=-0.005399  price=-0.000654  k=2.8  (14.3s)
+  gen 20/50  R_bar=2.7  w_bar=0.067223  delta_sel=-0.00905  price=-0.000435  k=3.2  (15.6s)
+  gen 21/50  R_bar=2.7068  w_bar=0.066767  delta_sel=-0.000481  price=-0.000532  k=3.0  (16.5s)
+  gen 22/50  R_bar=2.7042  w_bar=0.066934  delta_sel=-0.001129  price=-0.000265  k=2.8  (14.2s)
+  gen 23/50  R_bar=2.7046  w_bar=0.06692  delta_sel=-0.000825  price=-0.000706  k=3.2  (13.5s)
+  gen 24/50  R_bar=2.7039  w_bar=0.066959  delta_sel=-0.000842  price=-0.000546  k=3.0  (13.3s)
+  gen 25/50  R_bar=2.6982  w_bar=0.067344  delta_sel=0.002746  price=-0.000574  k=2.8  (13.2s)
+  gen 26/50  R_bar=2.6953  w_bar=0.067544  delta_sel=0.003245  price=-0.000592  k=2.8  (13.2s)
+  gen 27/50  R_bar=2.7033  w_bar=0.06701  delta_sel=-0.008249  price=-0.000715  k=2.9  (13.4s)
+  gen 28/50  R_bar=2.6967  w_bar=0.06746  delta_sel=0.005573  price=-0.000852  k=3.2  (13.3s)
+  gen 29/50  R_bar=2.6946  w_bar=0.067581  delta_sel=-0.000387  price=-0.000291  k=3.2  (13.3s)
+  gen 30/50  R_bar=2.6982  w_bar=0.067352  delta_sel=-0.001716  price=-0.00075  k=3.0  (13.3s)
+  gen 31/50  R_bar=2.6954  w_bar=0.067537  delta_sel=-0.004156  price=-0.000631  k=3.2  (13.7s)
+  gen 32/50  R_bar=2.6971  w_bar=0.067414  delta_sel=-0.00469  price=-0.000435  k=3.4  (13.2s)
+  gen 33/50  R_bar=2.6952  w_bar=0.067546  delta_sel=0.002966  price=-0.00053  k=3.3  (13.3s)
+  gen 34/50  R_bar=2.6967  w_bar=0.067442  delta_sel=-0.008209  price=-0.000536  k=3.4  (13.5s)
+  gen 35/50  R_bar=2.6903  w_bar=0.067879  delta_sel=0.001887  price=-0.000531  k=3.4  (13.6s)
+  gen 36/50  R_bar=2.6998  w_bar=0.067243  delta_sel=-0.005202  price=-0.000696  k=3.4  (14.1s)
+  gen 37/50  R_bar=2.6985  w_bar=0.067327  delta_sel=-0.004826  price=-0.000573  k=3.0  (14.0s)
+  gen 38/50  R_bar=2.7022  w_bar=0.067095  delta_sel=0.0107  price=-0.001017  k=3.4  (13.8s)
+  gen 39/50  R_bar=2.6981  w_bar=0.067399  delta_sel=-0.004859  price=-0.001957  k=3.4  (14.2s)
+  gen 40/50  R_bar=2.709  w_bar=0.066622  delta_sel=-0.003983  price=-0.00057  k=3.0  (14.0s)
+  gen 41/50  R_bar=2.6792  w_bar=0.068621  delta_sel=0.000124  price=-0.000198  k=3.2  (13.9s)
+  gen 42/50  R_bar=2.7009  w_bar=0.067172  delta_sel=-0.009318  price=-0.000751  k=3.2  (13.2s)
+  gen 43/50  R_bar=2.6943  w_bar=0.06761  delta_sel=-0.004161  price=-0.000592  k=3.6  (13.6s)
+  gen 44/50  R_bar=2.6892  w_bar=0.067965  delta_sel=0.010459  price=-0.000817  k=3.6  (13.5s)
+  gen 45/50  R_bar=2.7006  w_bar=0.067195  delta_sel=-0.005735  price=-0.000885  k=3.4  (13.7s)
+  gen 46/50  R_bar=2.6939  w_bar=0.06764  delta_sel=-0.00076  price=-0.000669  k=3.3  (14.9s)
+  gen 47/50  R_bar=2.681  w_bar=0.068519  delta_sel=-0.001567  price=-0.000638  k=2.8  (14.4s)
+  gen 48/50  R_bar=2.6934  w_bar=0.067676  delta_sel=0.001544  price=-0.000675  k=3.3  (14.6s)
+  gen 49/50  R_bar=2.7059  w_bar=0.066881  delta_sel=-0.009509  price=-0.001999  k=3.3  (14.7s)
+  gen 50/50  R_bar=2.6921  w_bar=0.067769  delta_sel=0.006731  price=-0.000838  k=3.4  (14.0s)
+
+  Run 1 complete: 682.9s
+  Final fraction with k=5: 0.15
+
+==================================================
+Run 2/3 (seed=84)
+==================================================
+Initializing population (K=20, 100 steps each)...
+  model 1: seed=84001 init_lang=french
+  model 20: seed=84020 init_lang=finnish
+  Initial: R_bar=2.956 w_bar=0.052308
+
+  gen 1/50  R_bar=2.956  w_bar=0.052308  delta_sel=-0.022347  price=-0.010515  k=2.6  (13.6s)
+  gen 2/50  R_bar=2.8015  w_bar=0.06076  delta_sel=0.015878  price=-0.001298  k=2.5  (14.6s)
+  gen 3/50  R_bar=2.767  w_bar=0.062864  delta_sel=0.002142  price=-0.000495  k=2.6  (13.6s)
+  gen 4/50  R_bar=2.7587  w_bar=0.063382  delta_sel=-0.004373  price=-0.000311  k=2.6  (13.7s)
+  gen 5/50  R_bar=2.7429  w_bar=0.064393  delta_sel=-0.00375  price=-0.000336  k=2.6  (13.6s)
+  gen 6/50  R_bar=2.7412  w_bar=0.064507  delta_sel=0.000268  price=-0.000406  k=2.9  (13.6s)
+  gen 7/50  R_bar=2.7344  w_bar=0.064943  delta_sel=-0.000703  price=-0.000281  k=2.6  (13.6s)
+  gen 8/50  R_bar=2.7345  w_bar=0.064935  delta_sel=-0.008062  price=-0.000337  k=2.8  (13.9s)
+  gen 9/50  R_bar=2.7334  w_bar=0.065014  delta_sel=-0.007429  price=-0.000538  k=2.8  (13.6s)
+  gen 10/50  R_bar=2.7241  w_bar=0.065613  delta_sel=0.005451  price=-0.000335  k=3.2  (15.3s)
+  gen 11/50  R_bar=2.7196  w_bar=0.06591  delta_sel=-0.002115  price=-0.000251  k=2.8  (15.2s)
+  gen 12/50  R_bar=2.7222  w_bar=0.065746  delta_sel=0.00811  price=-0.000587  k=2.8  (14.2s)
+  gen 13/50  R_bar=2.7144  w_bar=0.066255  delta_sel=-0.003332  price=-0.000322  k=3.0  (14.4s)
+  gen 14/50  R_bar=2.7146  w_bar=0.066242  delta_sel=0.004368  price=-0.000308  k=3.0  (14.2s)
+  gen 15/50  R_bar=2.7145  w_bar=0.066257  delta_sel=-0.010563  price=-0.000483  k=3.0  (14.0s)
+  gen 16/50  R_bar=2.7097  w_bar=0.066573  delta_sel=0.008388  price=-0.000412  k=3.2  (14.1s)
+  gen 17/50  R_bar=2.712  w_bar=0.066417  delta_sel=-0.005621  price=-0.00037  k=3.1  (13.5s)
+  gen 18/50  R_bar=2.7096  w_bar=0.066589  delta_sel=0.00067  price=-0.00078  k=3.0  (13.3s)
+  gen 19/50  R_bar=2.7051  w_bar=0.066875  delta_sel=0.005786  price=-0.000251  k=3.1  (13.2s)
+  gen 20/50  R_bar=2.7093  w_bar=0.066602  delta_sel=0.000217  price=-0.000521  k=3.2  (13.3s)
+  gen 21/50  R_bar=2.7114  w_bar=0.066462  delta_sel=0.003256  price=-0.000643  k=3.1  (13.1s)
+  gen 22/50  R_bar=2.699  w_bar=0.06728  delta_sel=0.002636  price=-0.000244  k=3.0  (13.3s)
+  gen 23/50  R_bar=2.7061  w_bar=0.066812  delta_sel=-0.004389  price=-0.000445  k=3.2  (13.2s)
+  gen 24/50  R_bar=2.6989  w_bar=0.067298  delta_sel=-0.015129  price=-0.000619  k=3.2  (13.3s)
+  gen 25/50  R_bar=2.7009  w_bar=0.06716  delta_sel=-0.007829  price=-0.000498  k=3.4  (13.2s)
+  gen 26/50  R_bar=2.6987  w_bar=0.067302  delta_sel=0.004984  price=-0.000337  k=3.2  (13.3s)
+  gen 27/50  R_bar=2.6981  w_bar=0.067363  delta_sel=0.00171  price=-0.00079  k=3.0  (13.2s)
+  gen 28/50  R_bar=2.6997  w_bar=0.067243  delta_sel=-0.001781  price=-0.000517  k=3.2  (13.2s)
+  gen 29/50  R_bar=2.7009  w_bar=0.067161  delta_sel=0.001136  price=-0.000372  k=3.0  (14.1s)
+  gen 30/50  R_bar=2.7014  w_bar=0.067132  delta_sel=-0.005901  price=-0.00062  k=3.0  (13.9s)
+  gen 31/50  R_bar=2.6938  w_bar=0.067634  delta_sel=-0.005543  price=-0.000273  k=3.0  (13.6s)
+  gen 32/50  R_bar=2.6873  w_bar=0.068077  delta_sel=-0.001509  price=-0.000315  k=3.2  (13.5s)
+  gen 33/50  R_bar=2.6927  w_bar=0.067721  delta_sel=0.001539  price=-0.000765  k=3.2  (14.5s)
+  gen 34/50  R_bar=2.7089  w_bar=0.066637  delta_sel=0.002854  price=-0.000777  k=3.1  (13.2s)
+  gen 35/50  R_bar=2.6977  w_bar=0.06738  delta_sel=0.004102  price=-0.000549  k=3.2  (14.0s)
+  gen 36/50  R_bar=2.6956  w_bar=0.06752  delta_sel=-0.001802  price=-0.000561  k=3.2  (14.9s)
+  gen 37/50  R_bar=2.6985  w_bar=0.067321  delta_sel=0.015122  price=-0.000446  k=3.1  (13.7s)
+  gen 38/50  R_bar=2.7072  w_bar=0.066756  delta_sel=0.00257  price=-0.000982  k=3.0  (15.1s)
+  gen 39/50  R_bar=2.6984  w_bar=0.067332  delta_sel=-0.000121  price=-0.00052  k=3.1  (14.5s)
+  gen 40/50  R_bar=2.6872  w_bar=0.06808  delta_sel=-0.005178  price=-0.000268  k=3.0  (14.6s)
+  gen 41/50  R_bar=2.7008  w_bar=0.067174  delta_sel=-0.00629  price=-0.000733  k=3.2  (15.1s)
+  gen 42/50  R_bar=2.7051  w_bar=0.06689  delta_sel=-0.008739  price=-0.000772  k=3.1  (15.3s)
+  gen 43/50  R_bar=2.6904  w_bar=0.067869  delta_sel=-0.000895  price=-0.000464  k=3.0  (14.7s)
+  gen 44/50  R_bar=2.687  w_bar=0.068112  delta_sel=-0.011911  price=-0.000865  k=3.0  (15.1s)
+  gen 45/50  R_bar=2.6821  w_bar=0.068433  delta_sel=-0.005888  price=-0.000415  k=3.2  (16.4s)
+  gen 46/50  R_bar=2.6953  w_bar=0.067543  delta_sel=0.002332  price=-0.000703  k=3.0  (14.6s)
+  gen 47/50  R_bar=2.6868  w_bar=0.068122  delta_sel=0.006443  price=-0.00064  k=3.0  (18.0s)
+  gen 48/50  R_bar=2.6907  w_bar=0.067848  delta_sel=0.005216  price=-0.000481  k=3.0  (19.0s)
+  gen 49/50  R_bar=2.6916  w_bar=0.067814  delta_sel=-0.001079  price=-0.001161  k=3.1  (20.3s)
+  gen 50/50  R_bar=2.6814  w_bar=0.068489  delta_sel=-0.007054  price=-0.000679  k=3.0  (20.3s)
+
+  Run 2 complete: 733.1s
+  Final fraction with k=5: 0.0
+
+==================================================
+Run 3/3 (seed=126)
+==================================================
+Initializing population (K=20, 100 steps each)...
+  model 1: seed=126001 init_lang=french
+  model 20: seed=126020 init_lang=english
+  Initial: R_bar=2.9205 w_bar=0.054233
+
+  gen 1/50  R_bar=2.9205  w_bar=0.054233  delta_sel=-0.030068  price=-0.011839  k=2.6  (18.0s)
+  gen 2/50  R_bar=2.7837  w_bar=0.06183  delta_sel=0.005001  price=-0.000683  k=2.6  (17.3s)
+  gen 3/50  R_bar=2.7642  w_bar=0.06304  delta_sel=-0.01316  price=-0.000405  k=2.6  (16.8s)
+  gen 4/50  R_bar=2.757  w_bar=0.063507  delta_sel=-0.005952  price=-0.000688  k=2.8  (16.5s)
+  gen 5/50  R_bar=2.7433  w_bar=0.064368  delta_sel=-0.001083  price=-0.00039  k=2.8  (19.1s)
+  gen 6/50  R_bar=2.7328  w_bar=0.065051  delta_sel=-0.003955  price=-0.000362  k=2.6  (18.7s)
+  gen 7/50  R_bar=2.7254  w_bar=0.065528  delta_sel=-0.001725  price=-0.000319  k=2.8  (17.5s)
+  gen 8/50  R_bar=2.7286  w_bar=0.065325  delta_sel=-0.005742  price=-0.000435  k=2.9  (17.4s)
+  gen 9/50  R_bar=2.7193  w_bar=0.06593  delta_sel=-0.001025  price=-0.000204  k=3.0  (17.2s)
+  gen 10/50  R_bar=2.7205  w_bar=0.065852  delta_sel=0.000752  price=-0.000347  k=2.8  (17.5s)
+  gen 11/50  R_bar=2.7108  w_bar=0.066497  delta_sel=0.001861  price=-0.00037  k=2.7  (18.0s)
+  gen 12/50  R_bar=2.7121  w_bar=0.066407  delta_sel=-0.003061  price=-0.000277  k=2.6  (16.5s)
+  gen 13/50  R_bar=2.7179  w_bar=0.066028  delta_sel=-3.3e-5  price=-0.000393  k=2.8  (17.1s)
+  gen 14/50  R_bar=2.7157  w_bar=0.066185  delta_sel=-0.003611  price=-0.000684  k=2.8  (16.7s)
+  gen 15/50  R_bar=2.7118  w_bar=0.066424  delta_sel=-0.003633  price=-0.000189  k=3.0  (16.6s)
+  gen 16/50  R_bar=2.7188  w_bar=0.065971  delta_sel=-0.005734  price=-0.000481  k=3.1  (16.3s)
+  gen 17/50  R_bar=2.7013  w_bar=0.067125  delta_sel=-0.00205  price=-0.000263  k=2.8  (16.4s)
+  gen 18/50  R_bar=2.7117  w_bar=0.066433  delta_sel=-0.000481  price=-0.000344  k=3.0  (16.5s)
+  gen 19/50  R_bar=2.7062  w_bar=0.066807  delta_sel=0.007058  price=-0.000458  k=3.1  (17.4s)
+  gen 20/50  R_bar=2.7014  w_bar=0.067116  delta_sel=0.002116  price=-0.00015  k=3.1  (18.0s)
+  gen 21/50  R_bar=2.7051  w_bar=0.066871  delta_sel=-0.001744  price=-0.000205  k=2.8  (18.1s)
+  gen 22/50  R_bar=2.7007  w_bar=0.067171  delta_sel=-0.004897  price=-0.000297  k=3.2  (17.6s)
+  gen 23/50  R_bar=2.7065  w_bar=0.066797  delta_sel=0.003559  price=-0.000738  k=3.0  (17.9s)
+  gen 24/50  R_bar=2.6975  w_bar=0.067391  delta_sel=-0.00533  price=-0.000437  k=3.0  (17.5s)
+  gen 25/50  R_bar=2.6961  w_bar=0.067483  delta_sel=0.008398  price=-0.000484  k=3.2  (18.7s)
+  gen 26/50  R_bar=2.695  w_bar=0.067562  delta_sel=-0.005206  price=-0.000597  k=3.4  (19.2s)
+  gen 27/50  R_bar=2.6995  w_bar=0.067249  delta_sel=-0.00393  price=-0.000274  k=3.2  (18.7s)
+  gen 28/50  R_bar=2.6899  w_bar=0.067902  delta_sel=0.002559  price=-0.000349  k=3.0  (18.5s)
+  gen 29/50  R_bar=2.694  w_bar=0.067628  delta_sel=-0.009013  price=-0.000521  k=3.3  (18.4s)
+  gen 30/50  R_bar=2.6966  w_bar=0.067451  delta_sel=0.003523  price=-0.000501  k=3.4  (17.6s)
+  gen 31/50  R_bar=2.6994  w_bar=0.067264  delta_sel=-0.005364  price=-0.000488  k=3.4  (17.2s)
+  gen 32/50  R_bar=2.6954  w_bar=0.067533  delta_sel=-0.006223  price=-0.000581  k=3.1  (17.8s)
+  gen 33/50  R_bar=2.697  w_bar=0.067424  delta_sel=0.004968  price=-0.000509  k=3.2  (17.6s)
+  gen 34/50  R_bar=2.6908  w_bar=0.067845  delta_sel=-0.001136  price=-0.000491  k=3.1  (15.9s)
+  gen 35/50  R_bar=2.6951  w_bar=0.06756  delta_sel=-0.00023  price=-0.000627  k=3.0  (15.9s)
+  gen 36/50  R_bar=2.6946  w_bar=0.067588  delta_sel=-0.010484  price=-0.000544  k=3.0  (16.4s)
+  gen 37/50  R_bar=2.6979  w_bar=0.067381  delta_sel=-0.002985  price=-0.000971  k=3.0  (16.0s)
+  gen 38/50  R_bar=2.6909  w_bar=0.067835  delta_sel=-0.00042  price=-0.000531  k=3.0  (18.1s)
+  gen 39/50  R_bar=2.6905  w_bar=0.067868  delta_sel=0.003275  price=-0.000692  k=3.2  (21.3s)
+  gen 40/50  R_bar=2.6889  w_bar=0.067971  delta_sel=-0.00042  price=-0.000511  k=3.2  (19.9s)
+  gen 41/50  R_bar=2.693  w_bar=0.067702  delta_sel=0.00031  price=-0.000711  k=3.0  (17.5s)
+  gen 42/50  R_bar=2.7004  w_bar=0.067211  delta_sel=0.004649  price=-0.001015  k=3.0  (17.4s)
+  gen 43/50  R_bar=2.6815  w_bar=0.068475  delta_sel=0.004751  price=-0.000357  k=3.0  (20.1s)
+  gen 44/50  R_bar=2.6912  w_bar=0.067807  delta_sel=-0.004472  price=-0.000282  k=2.9  (19.1s)
+  gen 45/50  R_bar=2.6895  w_bar=0.067937  delta_sel=0.003142  price=-0.000652  k=3.0  (18.7s)
+  gen 46/50  R_bar=2.6898  w_bar=0.067913  delta_sel=-0.010192  price=-0.000595  k=3.0  (17.5s)
+  gen 47/50  R_bar=2.682  w_bar=0.068438  delta_sel=-0.000348  price=-0.000397  k=3.2  (17.5s)
+  gen 48/50  R_bar=2.7022  w_bar=0.067093  delta_sel=-0.006729  price=-0.001082  k=3.0  (17.2s)
+  gen 49/50  R_bar=2.7009  w_bar=0.067184  delta_sel=-0.004456  price=-0.001091  k=3.0  (18.6s)
+  gen 50/50  R_bar=2.6971  w_bar=0.067417  delta_sel=-0.000373  price=-0.000592  k=3.0  (18.4s)
+
+  Run 3 complete: 898.6s
+  Final fraction with k=5: 0.0
+
+============================================================
+ANALYSIS
+============================================================
+
+Selection-stage expectation check (realized vs conditional expectation):
+  gen | delta_sel_mean | expected_mean | exact 95% band
+  ----|----------------|---------------|------------------
+    1 |      -0.020736 |     -0.010501 | [-0.05384, 0.032838]
+    2 |       0.010074 |     -0.000799 | [-0.012745, 0.011148]
+    3 |      -0.001353 |     -0.000512 | [-0.010361, 0.009337]
+    4 |      -0.005171 |      -0.00044 | [-0.009416, 0.008536]
+    5 |      -0.001987 |     -0.000444 | [-0.00957, 0.008683]
+    6 |       -0.00256 |     -0.000369 | [-0.008744, 0.008006]
+    7 |      -0.000343 |     -0.000306 | [-0.007973, 0.00736]
+    8 |      -0.005921 |     -0.000366 | [-0.008701, 0.007969]
+    9 |      -0.001366 |     -0.000337 | [-0.008193, 0.007518]
+   10 |       0.001338 |     -0.000299 | [-0.007814, 0.007216]
+   20 |      -0.002239 |     -0.000369 | [-0.008508, 0.007771]
+   30 |      -0.001365 |     -0.000623 | [-0.011432, 0.010185]
+   40 |      -0.003194 |      -0.00045 | [-0.0096, 0.008701]
+   50 |      -0.000232 |     -0.000703 | [-0.012193, 0.010786]
+
+Conditional Wright-Fisher diagnostics:
+  mean |delta_sel - expected| = 0.004294
+  mean |z| = 0.8205
+  rms z = 1.0313
+  coverage in exact 95% band = 0.96
+  fraction |z| <= 2 = 0.96
+
+Price equation regression: delta_sel = a + b * price_predicted
+  slope b = 1.9694  (expect ~1.0)
+  intercept a = -3.0e-5  (expect ~0.0)
+  R^2 = 0.2166
+  RMSE = 0.00535
+  mean |delta_sel - price_predicted| = 0.004294
+  sign match rate = 0.6333
+
+Mean risk and fitness trajectory:
+  gen | R_bar   | w_bar
+  ----|---------|--------
+    1 |  2.9343 | 0.053462
+    2 |  2.7918 | 0.061339
+    3 |  2.7699 | 0.062685
+    4 |   2.759 | 0.063368
+    5 |  2.7432 | 0.064375
+   10 |  2.7227 | 0.065706
+   20 |  2.7035 |  0.06698
+   30 |  2.6987 | 0.067312
+   40 |   2.695 | 0.067558
+   50 |  2.6902 | 0.067892
+
+Mean separation (k) across generations:
+  gen   1: mean_k=2.47
+  gen  10: mean_k=2.87
+  gen  25: mean_k=3.17
+  gen  50: mean_k=3.13
+
+Stagewise decomposition (mean across runs):
+  gen | delta_sel | delta_dev | delta_mut | total
+  ----|-----------|-----------|-----------|------
+    1 | -0.020736 | -0.121777 |   -4.0e-6 | -0.142517
+    2 |  0.010074 | -0.031938 |    9.0e-6 | -0.021854
+    3 | -0.001353 | -0.009631 |    9.5e-5 | -0.010889
+    4 | -0.005171 | -0.010641 |    3.9e-5 | -0.015773
+    5 | -0.001987 | -0.004077 |    2.1e-5 | -0.006043
+   10 |  0.001338 | -0.007432 |    1.1e-5 | -0.006083
+   20 | -0.002239 |  0.006494 |   -1.8e-5 |  0.004237
+   30 | -0.001365 | -0.001258 |    7.2e-5 | -0.002551
+   40 | -0.003194 | -0.000857 |    3.2e-5 | -0.004018
+   50 | -0.000232 |  0.000172 |   -2.1e-5 |   -8.1e-5
+
+============================================================
+PREDICTIONS CHECK
+============================================================
+
+1. Selection-stage expectation matches Wright-Fisher sampling noise
+   coverage in exact 95% band = 0.96
+   fraction |z| <= 2 = 0.96
+   exact 95% coverage >= 0.9: PASS
+   fraction |z| <= 2 >= 0.9: PASS
+   secondary OLS: slope=1.9694 intercept=-3.0e-5 R^2=0.2166
+
+2. Mean risk decreases over generations
+   R_bar(gen=1)=2.9343 R_bar(gen=50)=2.6902
+   PASS (expect decrease)
+
+3. Behavioural separation increases
+   mean_k(gen=1)=2.47 mean_k(gen=50)=3.13
+   PASS (expect k increases toward 5)
+
+4. Selection lowers risk (delta_sel < 0 on average)
+   mean delta_sel = -0.001489
+   PASS (expect negative)
+
+Results saved to /home/gvdr/reps/veridicity/llm/scripts/../output/exp3_population_results.txt
+Total time: 2317.0s

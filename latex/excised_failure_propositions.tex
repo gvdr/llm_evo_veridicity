@@ -1,0 +1,105 @@
+\section{Failure Modes and Predictions}\label{sec:failure}
+%==============================================================================
+
+These predictions require distinguishing the \emph{training ecology} $\mu_{\mathrm{tr}}$ from the \emph{deployment/test ecology} $\mu_{\mathrm{te}}$. The theorems above govern optimisation under $\mu_{\mathrm{tr}}$. Failures arise when deployment probes distinctions that $\mu_{\mathrm{tr}}$ left unseparated, or when an explicit simplicity pressure would merge low-gain distinctions by the criterion of \cref{thm:split-threshold}. These predictions are not made by the Platonic Representation Hypothesis.
+
+\subsection{Off-Ecology Error}
+
+We now turn from static optimality under the training ecology to what happens when deployment asks for distinctions the training ecology did not enforce. The first result is the basic failure theorem: if deployment refines training by splitting a pair that the training optimum was allowed to merge, then positive deployment excess is unavoidable.
+
+\begin{definition}[Training and deployment ecologies]
+Let $\mu_{\mathrm{tr}}$ be induced by the training-context marginal $D_C^{\mathrm{tr}}$ and $\mu_{\mathrm{te}}$ by the deployment/evaluation context marginal $D_C^{\mathrm{te}}$. We say that deployment \emph{refines} training if $[w]_{\mu_{\mathrm{te}}} \subseteq [w]_{\mu_{\mathrm{tr}}}$ for all $w$, with strict refinement when some pair $(w_1,w_2)$ satisfies $\sigmasq_{\mathrm{tr}}(w_1,w_2)=0 < \sigmasq_{\mathrm{te}}(w_1,w_2)$.
+\end{definition}
+
+\begin{proposition}[Off-ecology error under ecology refinement]\label{prop:off-ecology-error}
+Let $p$ be a minimum-complexity zero-excess encoding for $\mu_{\mathrm{tr}}$. If there exists a pair $(w_1,w_2)$ with $\sigmasq_{\mathrm{tr}}(w_1,w_2)=0$ and $\sigmasq_{\mathrm{te}}(w_1,w_2)>0$, then $p(w_1)=p(w_2)$ and
+\[
+L_{D^{\mathrm{te}}}^*(p) - H_{D^{\mathrm{te}}}(V \mid C,W)
+\ge (\pi(w_1)+\pi(w_2))\,
+   \E_{c\sim D_C^{\mathrm{te}}}
+   \!\left[\JS_{\lambda}
+   \bigl(P_{w_1}(\cdot\mid c),\,P_{w_2}(\cdot\mid c)\bigr)\right]
+> 0,
+\]
+where $\lambda=\pi(w_1)/(\pi(w_1)+\pi(w_2))$.
+\end{proposition}
+
+\begin{proof}
+By \cref{thm:min-complexity}, every minimum-complexity zero-excess encoding for $\mu_{\mathrm{tr}}$ has partition exactly $W/{\sim_{\mu_{\mathrm{tr}}}}$. Hence $\sigmasq_{\mathrm{tr}}(w_1,w_2)=0$ implies $p(w_1)=p(w_2)$. Let $x$ be the merged deployment cell containing $w_1$ and $w_2$. By \cref{thm:ce-decomposition}(b), the contribution of cell $x$ to the deployment excess is
+\[
+\pi_x\, \E_{c\sim D_C^{\mathrm{te}}}
+\bigl[\JS_{\alpha_x}(\{P_w(\cdot\mid c)\}_{w\in C_x})\bigr].
+\]
+Grouping all states in $C_x \setminus \{w_1,w_2\}$ into a residual component yields the hierarchical Jensen--Shannon decomposition
+\[
+\JS_{\alpha_x}(\{P_w\}_{w\in C_x})
+= \JS_{(\beta,1-\beta)}(M_{12},M_{\mathrm{rest}})
+  + \beta\,\JS_{\lambda}(P_{w_1},P_{w_2})
+  + (1-\beta)\,\JS_{\mathrm{rest}},
+\]
+where $\beta=\alpha_x(w_1)+\alpha_x(w_2)$, $M_{12}$ is the $(\lambda,1-\lambda)$-mixture of $P_{w_1},P_{w_2}$, $M_{\mathrm{rest}}$ is the mixture of the remaining cell distributions, and $\JS_{\mathrm{rest}}\ge 0$. Therefore the cell contribution is at least $\pi_x\beta\,\E[\JS_{\lambda}(P_{w_1},P_{w_2})]$, which is the displayed bound because $\pi_x\beta=\pi(w_1)+\pi(w_2)$. Because $\sigmasq_{\mathrm{te}}(w_1,w_2)>0$, the two deployment next-token laws differ on a set of positive $D_C^{\mathrm{te}}$-measure, so the expected two-state Jensen--Shannon term is strictly positive. For the same decomposition used in a cross-task comparison setting, see \cref{sec:genspec}.
+\end{proof}
+
+\begin{interpretation}
+Hallucination or factual error on such a query need not indicate a failure to optimise the training objective. It can instead reflect that deployment is probing a distinction that the training ecology never required the representation to preserve.
+\end{interpretation}
+
+\subsection{Off-Ecology Non-Identifiability}
+
+Positive deployment error is only one part of the failure story. Even when the training-optimal encoding is fixed, the objective may still leave deployment-time behaviour underdetermined on contexts that had zero training measure. The next proposition states that ambiguity explicitly by constructing multiple equally training-optimal off-ecology extensions.
+
+\begin{proposition}[Existence of multiple training-optimal off-ecology extensions]\label{prop:off-ecology-nonident}
+Assume deployment strictly refines training: there exist states $w_1,w_2 \in W$ and a measurable context set $A \subseteq V^*$ such that
+\[
+D_C^{\mathrm{tr}}(A)=0,
+\qquad
+D_C^{\mathrm{te}}(A)>0,
+\]
+and for every $c \in A$,
+\[
+P_{w_1}(\cdot \mid c) \neq P_{w_2}(\cdot \mid c),
+\]
+while $w_1$ and $w_2$ are training-equivalent:
+\[
+P_{w_1}(\cdot \mid c) = P_{w_2}(\cdot \mid c)
+\quad \text{for } D_C^{\mathrm{tr}}\text{-almost every } c.
+\]
+Let $p$ be any training-optimal encoding with $p(w_1)=p(w_2)=x$ (for example, any minimum-complexity optimum for $\mu_{\mathrm{tr}}$). Then there exist two decoders $q^{(1)}, q^{(2)}$ such that:
+\begin{enumerate}[label=(\alph*)]
+\item both attain the same optimal training loss,
+\[
+L_{D^{\mathrm{tr}}}(p,q^{(1)}) = L_{D^{\mathrm{tr}}}(p,q^{(2)}) = L_{D^{\mathrm{tr}}}^*(p);
+\]
+
+\item on the off-ecology set $A$ they disagree:
+\[
+q^{(1)}(x,c) = P_{w_1}(\cdot \mid c),
+\qquad
+q^{(2)}(x,c) = P_{w_2}(\cdot \mid c)
+\quad \text{for } c \in A.
+\]
+\end{enumerate}
+Hence the training objective does not identify a unique off-ecology extension, even when the training-optimal encoding is fixed.
+\end{proposition}
+
+\begin{proof}
+Let $q_p^{*,\mathrm{tr}}$ be the Bayes-optimal decoder for $p$ under the training distribution $D^{\mathrm{tr}}$, as given by \cref{thm:ce-decomposition}. Define $q^{(1)}$ and $q^{(2)}$ to equal $q_p^{*,\mathrm{tr}}$ on every context outside $A$ and on all codes other than~$x$. On $A$ and code~$x$, set
+\[
+q^{(1)}(x,c) := P_{w_1}(\cdot \mid c),
+\qquad
+q^{(2)}(x,c) := P_{w_2}(\cdot \mid c).
+\]
+Because $D_C^{\mathrm{tr}}(A)=0$, these modifications do not change the training expectation, so both decoders attain the same training loss $L_{D^{\mathrm{tr}}}^*(p)$. Because $D_C^{\mathrm{te}}(A)>0$ and the two token distributions differ on $A$, the deployment predictions of $q^{(1)}$ and $q^{(2)}$ differ on a set of positive deployment measure.
+\end{proof}
+
+\begin{interpretation}
+The non-identifiability is stronger than ``two trained models might happen to differ.'' The objective itself leaves room for multiple deployment-time extensions whenever deployment probes contexts that had zero training measure. Any systematic cross-model convergence there must come from shared inductive bias, architectural regularity, or other constraints beyond the training ecology itself.
+\end{interpretation}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/exp4_off_ecology_failure.pdf}
+\caption{Failure-side evidence from the off-ecology experiment. Left: per-model cross-entropy rises from the training ecology to related unseen languages and rises again on Voynich. Right: pairwise inter-model Jensen--Shannon disagreement shows the same ordering. This is the empirical signature predicted by \cref{prop:off-ecology-error,prop:off-ecology-nonident}: off-ecology probes incur larger excess and leave more room for divergent model behaviour.}
+\label{fig:exp4-off-ecology}
+\end{figure}
+
